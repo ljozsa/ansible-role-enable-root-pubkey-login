@@ -1,0 +1,18 @@
+---
+- name: "copy authorized_key"
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+
+- name: "generate ssh key for root"
+  user:
+    name: root
+    ssh_key_bits: "{{ ssh_key_bits }}"
+    generate_ssh_key: yes
+
+- name: "lock ogn/pi account"
+  user:
+    name: "{{ item }}"
+    password: ""
+  with_items: "{{ lock_user_accounts }}"

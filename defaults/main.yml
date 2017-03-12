@@ -1,0 +1,3 @@
+---
+ssh_key_bits: 4096
+lock_user_accounts: []
